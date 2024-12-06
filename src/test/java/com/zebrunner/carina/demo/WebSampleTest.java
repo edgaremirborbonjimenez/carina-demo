@@ -20,8 +20,12 @@ import java.util.List;
 import com.zebrunner.carina.demo.gui.components.ModelItem;
 import com.zebrunner.carina.demo.gui.components.NewsItem;
 import com.zebrunner.carina.demo.gui.components.compare.ModelSpecs;
+import com.zebrunner.carina.demo.gui.pages.desktop.MyHomePage;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -141,6 +145,58 @@ public class WebSampleTest implements IAbstractTest {
         }
 
         softAssert.assertAll();
+    }
+
+    @Test(description = "Validating search input field redirection")
+    @MethodOwner(owner = "emir")
+    public void searchInputTest(){
+        //   //a[contains(text(),'A')] XPath para buscar elementos que contengan dentro de su texto, dicho texto asignado
+        //   //a[1] para buscar en base a los elementos hijos de un elemento padre el enesimo elemento hijo que tiene
+        //Tambien se puede consultar la XPath desde el inspector con click derecho y copy XPath
+
+        MyHomePage homePage = new MyHomePage(getDriver());
+
+        WebDriver driver = getDriver();
+//        driver.navigate().to("https://www.gsmarena.com");
+        homePage.openPage();
+
+        //Va a la pagina de celulares de Nokia
+        //driver.findElement(By.xpath("//*[@id=\"body\"]/aside/div[1]/ul/li[4]/a")).click();
+        //driver.findElement(By.xpath("//a[text()=\"Nokia\"]"));
+
+//        driver.findElement(By.cssSelector("#topsearch>input")).sendKeys("Huawei");
+//        driver.findElement(By.cssSelector("#topsearch>input")).sendKeys(Keys.ENTER);
+        homePage.searchInput("Huawei");
+
+        String searchText = driver.findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.gsmarena.com/res.php3?sSearch=Huawei","Search Huawei");
+        Assert.assertEquals("Search results for \"Huawei\"",searchText,"Search Result");
+    }
+
+    @Test(description = "Validating phone finder link redirection")
+    @MethodOwner(owner = "emir")
+    public void phoneFinderLinkTest(){
+        //   //a[contains(text(),'A')] XPath para buscar elementos que contengan dentro de su texto, dicho texto asignado
+        //   //a[1] para buscar en base a los elementos hijos de un elemento padre el enesimo elemento hijo que tiene
+        //Tambien se puede consultar la XPath desde el inspector con click derecho y copy XPath
+
+        //POM - Page Object Model (Patter)
+        MyHomePage homePage = new MyHomePage(getDriver());
+
+        WebDriver driver = getDriver();
+//        driver.navigate().to("https://www.gsmarena.com");
+        homePage.openPage();
+
+        //Va a la pagina de celulares de Nokia
+        //driver.findElement(By.xpath("//*[@id=\"body\"]/aside/div[1]/ul/li[4]/a")).click();
+//        driver.findElement(By.xpath("//a[text()=\"Nokia\"]")).click();
+        homePage.goToPhoneFinderOption("Nokia");
+
+        String pageTitle = driver.findElement(By.tagName("h1")).getText();
+
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.gsmarena.com/nokia-phones-1.php","Search Huawei");
+        Assert.assertEquals("Nokia phones",pageTitle,"Search Result");
     }
 
 }

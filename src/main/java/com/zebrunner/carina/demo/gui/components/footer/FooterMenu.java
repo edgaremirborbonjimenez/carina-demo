@@ -29,6 +29,7 @@ public class FooterMenu extends FooterMenuBase {
     @FindBy(linkText = "Home")
     private ExtendedWebElement homeLink;
 
+    //el . singifica que va a buscar dicho elemento dentro de este elemento                   Footer
     @FindBy(xpath = ".//a[contains(text(),'Compare')]")
     private ExtendedWebElement compareLink;
     
