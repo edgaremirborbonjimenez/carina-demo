@@ -1,11 +1,11 @@
-package com.zebrunner.carina.demo.utils;
+package com.zebrunner.carina.demo.utils.my_fitness_pal_utils;
 
-public enum SEX {
+public enum Sex {
     FEMALE("F"),MALE("M");
 
     private final String sex;
 
-    SEX(String sex){
+    Sex(String sex){
         this.sex = sex;
     }
 

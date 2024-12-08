@@ -6,19 +6,21 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.LinkedList;
+
 public class OptionsBaseModal extends AbstractUIObject {
-    @FindBy(xpath = "//div[@role =\"group\"]/button['%d']")
+    @FindBy(xpath = ".//div[@role =\"group\"]/button[%d]")
     ExtendedWebElement options;
 
-    @FindBy(xpath = "//nav//button")
+    @FindBy(xpath = ".//nav//button")
     ExtendedWebElement nextBtn;
 
     public OptionsBaseModal(WebDriver driver, SearchContext searchContext){
         super(driver,searchContext);
     }
 
-    public void selectOption(int option){
-        options.format(option).click();
+    public void selectOption(LinkedList<Integer> optionsSelected){
+        optionsSelected.forEach(opt-> options.format(opt).click());
     }
 
     public void clickNext(){

@@ -12,8 +12,6 @@ import java.time.Duration;
 
 public class MyFitnessPalHomePage extends MyFitnessPalBasePage {
 
-    @FindBy(xpath = "//button[text()=\"OK\"]")
-    ExtendedWebElement acceptCookies;
 
     @FindBy(xpath = "//section[1]//a")
     ExtendedWebElement accountBtn;
@@ -31,6 +29,10 @@ public class MyFitnessPalHomePage extends MyFitnessPalBasePage {
     @Override
     public void open() {
         super.open();
-        acceptCookies.clickIfPresent(waiting);
+        if(iframe.isElementPresent()){
+            getDriver().switchTo().frame(iframe.getElement());
+            acceptCookies.clickIfPresent(waiting);
+            getDriver().switchTo().defaultContent();
+        }
     }
 }

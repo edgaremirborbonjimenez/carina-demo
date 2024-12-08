@@ -1,6 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.myfitnesspal.components.sign_up_components;
 
-import com.zebrunner.carina.demo.utils.SEX;
+import com.zebrunner.carina.demo.utils.my_fitness_pal_utils.Sex;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 import org.openqa.selenium.SearchContext;
@@ -21,6 +21,9 @@ public class DemographicModal extends AbstractUIObject {
     @FindBy(xpath = "//li[text()='%s']")
     ExtendedWebElement countryOption;
 
+    @FindBy(id = "zipcode")
+    ExtendedWebElement zipCodeInput;
+
     @FindBy(xpath = "//*[text()=\"Next\"]/..")
     ExtendedWebElement nextBtn;
 
@@ -28,7 +31,7 @@ public class DemographicModal extends AbstractUIObject {
         super(driver,searchContext);
     }
 
-    public void selectSex(SEX sex){
+    public void selectSex(Sex sex){
         sexCheckBox.format(sex.getSex()).click();
     }
 
@@ -36,9 +39,17 @@ public class DemographicModal extends AbstractUIObject {
         birthday.type(date);
     }
 
+    public String getBirthday(){
+        return birthday.getText();
+    }
+
     public void selectCountry(String country){
         selectCountry.click();
         countryOption.format(country).click();
+    }
+
+    public void enterZipCode(String zipCode){
+        zipCodeInput.type(zipCode);
     }
 
     public void clickNext(){
